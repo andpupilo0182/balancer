@@ -10,7 +10,7 @@
 
   - name: enviando arquivo de configuracao
     copy:
-      src: /root/plays/nginx.conf
+      src: nginx.conf
       dest: /etc/nginx/nginx.conf
       owner: root
       group: root
