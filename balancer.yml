@@ -1,0 +1,25 @@
+---
+- hosts: balancer
+  tasks:
+
+  - name: Instalando o Nginx no balancer
+    yum:
+      name: nginx
+      state: present
+    register: nginx
+
+  - name: enviando arquivo de configuracao
+    copy:
+      src: /root/plays/nginx.conf
+      dest: /etc/nginx/nginx.conf
+      owner: root
+      group: root
+      mode: 0644
+    when: nginx is succeeded
+    register: conf
+
+  - name: Inciando o nginx
+    service:
+      name: nginx
+      state: started
+    when: conf is succeeded
